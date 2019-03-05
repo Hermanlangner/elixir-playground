@@ -17,8 +17,13 @@ defmodule MyappWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-  end
+    get "/hello", HelloController, :index
+    get "/hello/:messenger", HelloController, :show
 
+  end
+  scope "/" do
+    forward "/jobs", BackgroundJob.Plug, name: "Hello Phoenix"
+  end
   # Other scopes may use custom stacks.
   # scope "/api", MyappWeb do
   #   pipe_through :api
